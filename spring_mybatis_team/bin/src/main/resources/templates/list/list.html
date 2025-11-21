@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{common/layout_4block :: layout(~{::body/content()})}">
+<head>
+<title>社員一覧 | 社員管理システム</title>
+<meta charset="UTF-8" />
+</head>
+<body class="admin user_list">
+	<h3>社員一覧画面</h3>
+	<!--TODO セッション中ユーザの権限が管理者の場合のみ表示するようにth:if属性を変更する(以下の文も同様) -->
+	<th:block th:if="${true}">
+		<div class="regist_link">
+			<a th:href="@{/regist/input}">新規社員登録</a>
+		</div>
+	</th:block>
+	<th:block th:if="${#lists.isEmpty(employees)}">
+		<div class="message">
+			<p class="back_to_top_message">該当する社員は存在しません。</p>
+			<p class="back_to_top_link">
+				<a th:href="@{/list}">一覧表示に戻る</a>
+			</p>
+		</div>
+	</th:block>
+	<table class="list_table" th:if="!${#lists.isEmpty(employees)}">
+		<tr>
+			<th class="empId">社員ID</th>
+			<th class="empName">社員名</th>
+			<th:block th:if="${true}">
+				<th class="gender">性別</th>
+				<th class="address">住所</th>
+				<th class="birthday">生年月日</th>
+				<th class="authority">権限</th>
+			</th:block>
+			<th class="deptName">部署名</th>
+			<th:block th:if="${true}">
+				<th class="button" colspan="2">操作</th>
+			</th:block>
+		</tr>
+		<tr th:each="employee: ${employees}">
+			<td th:text="${employee.empId}"></td>
+			<td th:text="${employee.empName}"></td>
+			<th:block th:if="${true}">
+				<td th:switch="${employee.gender}"><span th:case="1">男性</span>
+					<span th:case="2">女性</span></td>
+				<td th:text="${employee.address}"></td>
+				<td th:text="${#dates.format(employee.birthday, 'yyyy/MM/dd')}"></td>
+				<td th:switch="${employee.authority}"><span th:case="1">一般</span>
+					<span th:case="2">管理者</span></td>
+			</th:block>
+			<td th:text="${employee.deptName}"></td>
+			<th:block th:if="${true}">
+				<td>
+					<form method="get" th:action="@{/update/input}">
+						<input type="hidden" name="empId" th:value="${employee.empId}" />
+						<input type="submit" value="変更" />
+					</form>
+				</td>
+				<td>
+					<form method="get" th:action="@{/delete/check}">
+						<input type="hidden" name="empId" th:value="${employee.empId}" />
+						<input type="submit" value="削除" class="delete" />
+					</form>
+				</td>
+			</th:block>
+		</tr>
+	</table>
+</body>
+</html>

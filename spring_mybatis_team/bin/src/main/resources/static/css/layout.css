@@ -1,0 +1,95 @@
+﻿@charset "UTF-8";
+
+/* ---- 画面の大枠のレイアウト用CSS ---- */
+
+/* ---- 共通 ---- */
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.content {
+	display: flex;
+	flex-direction: row;
+	justify-content:space-between;
+	width: 920px;
+	margin: 0px auto;
+}
+
+.login {
+	width: 100%;
+}
+
+/* ---- ヘッダー ---- */
+header {
+	height: 60px;
+	width: 100%;
+	background-color: #87CEEB;
+	padding-top: 10px;
+}
+
+header .title {
+	margin-left: 10px;
+	line-height: 45px;
+	font-size: 25pt;
+}
+
+header .user_info {
+	margin-right: 20px;
+	line-height: 45px;
+	text-align: right;
+}
+
+header .user_info a {
+	text-decoration: none;
+}
+
+/* ---- サイドバー ---- */
+aside {
+	width: 200px;
+}
+
+aside .title {
+	background-color: #add8e6;
+	margin: 5px 0px 10px 10px;
+	padding: 3px;
+	font-weight: bold;
+}
+
+aside .form {
+	padding-left: 15px;
+}
+
+aside input[type=text] {
+	width: 110px;
+	margin-right: 10px;
+}
+
+aside select {
+	margin: 0px 10px 0px 0px;
+	vertical-align: middle;
+	width: 110px;
+}
+
+aside input[type=submit] {
+	width: 50px;
+	margin-right: 5px;
+}
+
+/* ---- メイン ---- */
+article {
+	
+	width: 700px;
+	padding-left: 20px;
+}
+
+
+/* ---- フッター ---- */
+footer {
+	height: 30px;
+	background-color: #87CEEB;
+	text-align: center;
+	font-size: 8pt;
+	line-height: 30px;
+}
+
