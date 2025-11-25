@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<aside th:fragment="layout-sidebar" th:class="${session.user == null or session.user.authority == 1} ? ${'search'} : ${'admin_menu'}" >
+	  <div class="title">社員名検索</div>
+	 
+	  <div class="form">
+	    <form th:action="@{/list/empName}" method="get">
+	      <input type="text" name="empName" />
+	      
+	      <input type="submit" value="検索" />
+	    </form>
+	  
+	  </div>
+	  <div class="title">部署名検索</div>
+	  <div class="form">
+	    <form th:action="@{/list/deptId}" method="get">
+
+	     <span th:if="${selectedDeptId == null}">
+	      	<select name="deptId">
+	        	<option value="1"selected>営業部</option>
+	        	<option value="2">経理部</option>
+	        	<option value="3">総務部</option>
+	      	</select>
+	     </span>
+
+	     <span th:unless="${selectedDeptId == null}">
+	     	<select name="deptId">
+	      		<option value="1" th:selected="${selectedDeptId}== '1'">営業部</option>
+	        	<option value="2" th:selected="${selectedDeptId}== '2'">経理部</option>
+	       		<option value="3" th:selected="${selectedDeptId}== '3'">総務部</option>
+	      	</select>
+	     </span>
+
+	     <input type="submit" value="検索" />
+	    </form>
+	  </div>
+	</aside>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<th:block id="header" th:fragment="layout-header">
+		<div class="content">
+			<div class="title">社員管理システム</div>
+			<div th:if="${session.user != null}" class="user_info">
+				ようこそ、<a th:href="@{/update/input(empId=${session.user.empId})}"><span th:text="${session.user.empName}"></span></a>さん
+				<span class="pipeline">|</span>
+				<a th:href="@{/logout}">ログアウト</a>
+			</div>
+		</div>
+	</th:block>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{common/layout_4block :: layout(~{::body/content()})}">
+<head>
+<title>社員削除確認 | 社員管理システム</title>
+<meta charset="UTF-8" />
+</head>
+<body class="admin user_delete_check_admin">
+		<h3>社員削除確認画面</h3>
+    <div class="update">
+      <div class="form">
+        <div class="label">パスワード：</div>
+        <div class="input">※非表示</div>
+      </div>
+      <div class="form">
+        <div class="label">社員名：</div>
+        <div class="input" th:text="${employee.empName}"></div>
+      </div>
+      <div class="form">
+        <div class="label">性別：</div>
+        <div class="input" th:switch="${employee.gender}">
+          <span th:case="1">男性</span>
+          <span th:case="2">女性</span>
+        </div>
+      </div>
+      <div class="form">
+        <div class="label">住所：</div>
+        <div class="input" th:text="${employee.address}"></div>
+      </div>
+      <div class="form">
+        <div class="label">生年月日：</div>
+        <!-- 日付出力フォーマットを設定 -->
+        <div class="input" th:text="${#dates.format(employee.birthday, 'yyyy/MM/dd')}"></div>
+      </div>
+      <div class="form">
+        <div class="label">権限：</div>
+        <div class="input" th:switch="${employee.authority}">
+          <span th:case="1">一般</span>
+          <span th:case="2">管理者</span>
+        </div>
+      </div>
+      <div class="form">
+        <div class="label">部署名：</div>
+        <div class="input" th:text="${deptName}"></div>
+      </div>
+      <form th:action="@{/delete/complete}" method="post">
+        <div class="form">
+          <div class="label"></div>
+          <div class="input">
+            <input type="hidden" name="empId" th:value="${employee.empId}" />
+            <input type="submit" value="削除" />
+          </div>
+        </div>
+      </form>
+      <form th:action="@{/list}">
+        <div class="form">
+          <div class="label"></div>
+          <div class="input">
+            <input type="submit" value="戻る" />
+          </div>
+        </div>
+      </form>
+    </div>
+</body>
+</html>
