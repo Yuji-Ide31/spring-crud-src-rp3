@@ -18,8 +18,8 @@ public class DeleteEmployeeService {
 	 * 
 	 * @return 社員エンティティ
 	 */
-	public Boolean execute(Integer deptId) {
-		return mapper.delete(deptId);
+	public Boolean execute(Integer empId) {
+		return mapper.delete(empId);
 	}
 
 }
