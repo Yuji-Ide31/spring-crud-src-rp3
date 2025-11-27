@@ -3,62 +3,79 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.sss.crud.mapper.EmployeeMapper">
 
-	<!-- 全件検索 -->
-	<select id="findAllEmployeesOrderByEmpId"
-		resultType="jp.co.sss.crud.entity.Employee">
-		SELECT *
+	<select id="findAllEmployeesOrderByEmpId" resultType="jp.co.sss.crud.entity.Employee">
+		SELECT * 
 		FROM Employee e
-		INNER JOIN Department d ON e.dept_id = d.dept_id
+			INNER JOIN Department d ON e.dept_id = d.dept_id 
 		ORDER BY e.emp_id ASC
 	</select>
-
-	<!-- 主キー検索 -->
-	<select id="findByEmpId"
-		resultType="jp.co.sss.crud.entity.Employee">
-		SELECT *
+	
+	<select id="findByEmpNameContainingOrderByEmpId" resultType="jp.co.sss.crud.entity.Employee">
+		SELECT * 
 		FROM Employee e
-		INNER JOIN Department d ON e.dept_id = d.dept_id
+			INNER JOIN Department d ON e.dept_id = d.dept_id
+		WHERE emp_name LIKE CONCAT('%', #{empName}, '%')
+		ORDER BY emp_id ASC
+	</select>
+
+	<select id="findByDepartmentDeptIdOrderByEmpId" resultType="jp.co.sss.crud.entity.Employee">
+		SELECT * 
+		FROM Employee e
+			INNER JOIN Department d ON e.dept_id = d.dept_id
+		WHERE e.dept_id = #{deptId}
+		ORDER BY emp_id ASC
+	</select>
+
+	<select id="findByEmpIdAndEmpPass" resultType="jp.co.sss.crud.entity.Employee">
+		SELECT * 
+		FROM employee e
+			INNER JOIN department d ON e.dept_id = d.dept_id
+		WHERE emp_id = #{empId} AND emp_pass = #{empPass}
+		ORDER BY emp_id ASC
+	</select>
+
+	<select id="findByEmpId" resultType="jp.co.sss.crud.entity.Employee">
+		SELECT * 
+		FROM Employee e
+			INNER JOIN Department d ON e.dept_id = d.dept_id
 		WHERE emp_id = #{empId}
-	</select>
-
-	<!-- TODO 社員名検索 -->
-	<select id="findByEmpNameContainingOrderByEmpId"
-		resultType="jp.co.sss.crud.entity.Employee">
-	</select>
-
-	<!-- TODO 部署ID検索 -->
-	<select id="findByDepartmentDeptIdOrderByEmpId"
-		resultType="jp.co.sss.crud.entity.Employee">
-	</select>
-
-	<!-- TODO ログイン用のIDとパスワード検索 -->
-	<select id="findByEmpIdAndEmpPass"
-		resultType="jp.co.sss.crud.entity.Employee">
+		ORDER BY emp_id ASC
 	</select>
 
 
-	<!-- 単一登録。社員IDは自動採番 -->
-	<insert id="insert"
-		parameterType="jp.co.sss.crud.entity.Employee" useGeneratedKeys="true"
-		keyProperty="empId">
-		
-		INSERT INTO employee
+	<insert id="insert" parameterType="jp.co.sss.crud.entity.Employee" useGeneratedKeys="true" keyProperty="empId">
+		INSERT INTO employee 
 		(
-		emp_pass,emp_name,gender,address,birthday,authority,dept_id
+			emp_pass,emp_name,gender,address,birthday,authority,dept_id
 		) VALUES (
-		#{empPass},#{empName},#{gender},#{address},#{birthday},#{authority},#{deptId}
+			#{empPass},#{empName},#{gender},#{address},#{birthday},#{authority},#{deptId}
 		)
 	</insert>
 
-	<!-- TODO IDによる単一変更 -->
-	<update id="update"	parameterType="jp.co.sss.crud.entity.Employee">
-
+	<update id="update" parameterType="jp.co.sss.crud.entity.Employee">
+		UPDATE Employee
+		SET
+			emp_pass = #{empPass},
+			emp_name = #{empName},
+			gender = #{gender},
+			address = #{address},
+			birthday = #{birthday},
+			authority = #{authority},
+			dept_id = #{deptId}
+		WHERE emp_id = #{empId}
 	</update>
+	
+	    <!-- 1. ID-->
+    <delete id="delete" parameterType="int">
+        DELETE FROM employee
+        WHERE emp_id = #{empId}
+    </delete>
 
-	<!-- TODO IDによる単一削除 -->
-	<delete id="delete" parameterType="int">
-
-	</delete>
-
+    <!-- 2. 
+    <delete id="deleteByEntity" parameterType="com.example.entity.Employee">
+        DELETE FROM employee
+        WHERE id = #{id}
+    </delete>
+     -->
 
 </mapper>
