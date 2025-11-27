@@ -27,8 +27,11 @@ public class LoginService {
 	 */
 	public LoginResult execute(LoginForm loginForm) {
 		Employee loginUser = this.mapper.findByEmpIdAndEmpPass(loginForm.getEmpId().intValue(), loginForm.getEmpPass());
-		if (loginUser == null)
+		if (loginUser == null) {
 			return LoginResult.failLogin("社員ID、またはパスワードが間違っています。", LoginErrorType.USER_NOT_FOUND);
+		}
 		return LoginResult.succeedLogin(loginUser);
+
 	}
+
 }

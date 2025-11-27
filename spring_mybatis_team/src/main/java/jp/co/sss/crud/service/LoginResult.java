@@ -30,19 +30,19 @@ public class LoginResult {
 	}
 
 	public boolean isLogin() {
-		return isLogin;
+		return this.isLogin;
 	}
 
 	public Employee getLoginUser() {
-		return loginUser;
+		return this.loginUser;
 	}
 
 	public String getErrorMsg() {
-		return errorMsg;
+		return this.errorMsg;
 	}
 
 	public LoginErrorType getLoginErrorType() {
-		return loginErrorType;
+		return this.loginErrorType;
 	}
 
 }
