@@ -4,9 +4,12 @@ import java.io.IOException;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * ログインチェック用フィルタ
@@ -20,12 +23,17 @@ public class LoginCheckFilter extends HttpFilter {
 			throws IOException, ServletException {
 
 		//TODO セッションからユーザー情報を取得
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") == null) {
+			HttpServletResponse httpResponse = response;
+			httpResponse.sendRedirect(request.getContextPath());
+			return;
+		}
 
 		//TODO ユーザーがNULLの場合、ログイン画面にリダイレクトする
 
 		// 次の処理へ移行
-		chain.doFilter(request, response);
-		return;
+		chain.doFilter((ServletRequest) request, (ServletResponse) response);
 
 	}
 }
